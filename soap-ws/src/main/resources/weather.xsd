@@ -1,0 +1,23 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="http://moerks.dk/soapws/schemas">
+
+    <xs:element name="WeatherRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="city" />
+                <xs:element type="xs:string" name="country" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="WeatherResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:int" name="temp_celsius" />
+                <xs:element type="xs:string" name="forecast" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
