@@ -11,6 +11,7 @@
 
     <modules>
         <module>soap-ws</module>
+        <module>wls-jms</module>
     </modules>
 
     <build>

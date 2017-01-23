@@ -1,0 +1,22 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="http://moerks.dk/wlsjms/schemas">
+
+    <xs:element name="OrderRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="item" />
+                <xs:element type="xs:int" name="amount" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="OrderResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="status" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://camel.apache.org/schema/spring
+          http://camel.apache.org/schema/spring/camel-spring.xsd
+          http://www.springframework.org/schema/jee
+          http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
+
+    <!-- Route(s) -->
+    <camel:camelContext id="camelContext">
+        <camel:routeBuilder ref="orderRoute"/>
+    </camel:camelContext>
+    <bean id="orderRoute" class="dk.moerks.wlsjms.routes.OrderRoute"/>
+
+    <!-- Connection Factories -->
+    <bean id="weblogic" class="org.apache.camel.component.jms.JmsComponent">
+        <property name="connectionFactory" ref="orderConnectionFactory"/>
+    </bean>
+    <jee:jndi-lookup id="orderConnectionFactory" jndi-name="jms/OrderConnectionFactory"/>
+
+    <!-- Endpoint Mapping -->
+    <bean id="endpointMapping" class="org.apache.camel.component.spring.ws.bean.CamelEndpointMapping" />
+
+    <!-- WSDL Exposure -->
+    <bean id="order" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean id="xsd" class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd" value="WEB-INF/classes/order.xsd"/>
+            </bean>
+        </property>
+        <property name="portTypeName" value="wlsjms"/>
+        <property name="locationUri" value="/order"/>
+    </bean>
+</beans>
